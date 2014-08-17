@@ -1,3 +1,6 @@
+if (typeof window.endless === 'undefined')
+    window.endless = false
+
 WebFontConfig = {
     google: { families: [ 'Source+Sans+Pro:300,400,700:latin' ] }
   };
@@ -112,9 +115,11 @@ function render(ctx, width, height, dt) {
     // ctx.arc(width/2,height/2, r2, 0, PI2, false)
         
     var pad = 25, thick = 4
-    ctx.fillRect(pad+5, height-pad-thick, 100 * life, thick)
-    ctx.fillRect(pad, ~~(height-pad-thick*1.5), 2, 8)
-    ctx.fillRect(pad+108, ~~(height-pad-thick*1.5), 2, 8)
+    if (!endless) {
+        ctx.fillRect(pad+5, height-pad-thick, 100 * life, thick)
+        ctx.fillRect(pad, ~~(height-pad-thick*1.5), 2, 8)
+        ctx.fillRect(pad+108, ~~(height-pad-thick*1.5), 2, 8)
+    }
 
 
     life = fin ? 0 : Math.max(0, Math.min(1.0, life + 0.0005))
@@ -204,14 +209,16 @@ function render(ctx, width, height, dt) {
     renderParticles(ctx, width, height)
 
     ctx.fillStyle = '#fff'
-    graph(cx, cy, 360, (radius+6)*anim, true)
+    ctx.globalAlpha = 0.2
+    graph(cx, cy, 360, (radius+4)*anim, true)
+    ctx.globalAlpha = 1.0
     graph(cx, cy, 360, radius*anim, true)
 
     
     shoot()
 
 
-    if (life < 0.01 || fin) {
+    if (!endless && (life < 0.01 || fin)) {
         if (!fin) {
             time = 0
             intro.innerHTML = 'you died<br><font>click to replay</font>'
