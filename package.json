@@ -1,5 +1,5 @@
 {
-  "name": "kb-gl",
+  "name": "whistleblower",
   "version": "1.0.0",
   "description": "a mini GL renderer for 2D compos with small sizes",
   "main": "index.js",
@@ -16,7 +16,8 @@
     "web-audio-analyser": "^1.0.0"
   },
   "scripts": {
-    "test": "tape test.js"
+    "test": "tape test.js",
+    "build": "browserify demo/index.js | uglifyjs -cm > demo/index.min.js"
   },
   "testling": {
     "files": "test.js",
@@ -33,10 +34,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mattdesl/kb-gl.git"
+    "url": "git://github.com/mattdesl/whistleblower.git"
   },
-  "homepage": "https://github.com/mattdesl/kb-gl",
+  "homepage": "https://github.com/mattdesl/whistleblower",
   "bugs": {
-    "url": "https://github.com/mattdesl/kb-gl/issues"
+    "url": "https://github.com/mattdesl/whistleblower/issues"
   }
 }

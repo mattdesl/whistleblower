@@ -430,7 +430,7 @@ function start(ctx, width, height) {
         setTimeout(function() {
             child && (child.style.opacity = '1.0')
         }, 700)
-    }, 500)
+    }, 1000)
     document.body.appendChild(intro)
 
 
