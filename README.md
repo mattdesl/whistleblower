@@ -1,14 +1,12 @@
-[![browser support](https://ci.testling.com/mattdesl/whistleblower.png)](https://ci.testling.com/mattdesl/whistleblower)
-
 # whistleblower
 
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-whistle blowing game for js13kgames
+Whistle blowing game for js13kgames. Click [here](http://mattdesl.github.io/whistleblower/demo/) to play it. Requires WebAudio and getUserMedia; works best in Chrome. FireFox's audio API still seems buggy.
 
-## Usage
+Also doubles as a nifty audio visualizer. 
 
-[![NPM](https://nodei.co/npm/whistleblower.png)](https://nodei.co/npm/whistleblower/)
+[![img](http://i.imgur.com/EnWCepy.png)](http://mattdesl.github.io/whistleblower/demo/)
 
 ## License
 
