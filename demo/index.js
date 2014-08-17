@@ -376,10 +376,8 @@ function step(dt, width, height) {
 }
 
 function caption() {
-    if (supported) {
-        var child = intro.querySelector('font')
-        child.style.cssText = 'font-weight: 500; font-size: 18px; opacity: 0.0;'+transition
-    }
+    var child = intro.getElementsByTagName('font')[0]
+    child.style.cssText = 'font-weight: 500; font-size: 18px; opacity: 0.0;'+transition
     return child
 }
 
@@ -417,7 +415,7 @@ function start(ctx, width, height) {
     }
 
     intro.innerHTML = supported
-                ? 'please allow microphone<br><font>whistle to shoot</font>' : 'only supported in Chrome / FireFox'
+                ? 'please allow microphone<br><font>whistle to shoot</font>' : 'requires Web Audio API<br><font>works best in Chrome</font>'
     
     intro.style.cssText = "position:fixed; opacity: 0.0; top:50%; width:100%; text-align:center; -webkit-font-smoothing: antialiased; font: 20px 'Source Sans Pro', sans-serif; color: white; line-height: 25px; font-weight: 700;"+ transition
     var child = caption()
