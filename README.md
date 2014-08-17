@@ -2,7 +2,7 @@
 
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-Whistle blowing game for js13kgames. Click [here](http://mattdesl.github.io/whistleblower/demo/) to play it. Requires WebAudio and getUserMedia; works best in Chrome. FireFox's audio API still seems buggy.
+Whistle blowing game for js13kgames. Click [here](http://mattdesl.github.io/whistleblower/demo/) to play it. Requires WebAudio and getUserMedia; works in Chrome and FireFox.
 
 Also doubles as a nifty audio visualizer. 
 
