@@ -40,7 +40,7 @@ var AudioContext = window.webkitAudioContext || window.AudioContext || window.mo
     audioContext = AudioContext && new AudioContext(),
     getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia,
     analyser,
-    waveform,
+    // waveform,
     intro = document.createElement("span"),
     wavesum,
     time = 0,
@@ -54,12 +54,26 @@ getUserMedia && getUserMedia.call(navigator, {audio:true, video:false}, function
 
     setTimeout(function() {
         analyser = audioContext.createAnalyser()
-        audioContext.createMediaStreamSource(stream).connect(analyser)
+        // console.log(analyser.fftSize)
+        analyser.fftSize = 2048
+        var source = audioContext.createMediaStreamSource(stream)
 
-        waveform = new Uint8Array(analyser.frequencyBinCount)
+        // waveform = new Uint8Array(analyser.frequencyBinCount)
         frequencies = new Uint8Array(analyser.frequencyBinCount)
-        wavesum = new Uint8Array(waveform)
+        // wavesum = new Uint8Array(waveform)
         
+        var jsNode = audioContext.createScriptProcessor(1024, 1, 1)
+        analyser.connect(jsNode)
+
+        // binding the callback to window to avoid the GC to clean it
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=916387
+        jsNode.onaudioprocess = window.audioProcess = function() {
+            analyser.getByteFrequencyData(frequencies);
+        }
+        
+        source.connect(analyser)
+        jsNode.connect(audioContext.destination)
+
         intro.style.display='none'
     }, 1000)
     
@@ -124,8 +138,10 @@ function render(ctx, width, height, dt) {
 
     life = fin ? 0 : Math.max(0, Math.min(1.0, life + 0.0005))
 
-    analyser.getByteTimeDomainData(waveform)
-    analyser.getByteFrequencyData(frequencies)
+    // analyser.getByteTimeDomainData(waveform)
+    // analyser.getByteFrequencyData(frequencies)
+
+    // console.log(frequencies)
 
     // var lowfreq = frequencies.subarray(50, 90)
     var lowfreq = frequencies.subarray(50, 80)
@@ -400,10 +416,10 @@ function start(ctx, width, height) {
         replaying = true
         time = 0
         intro.style.opacity = '0.0'
-        particles.forEach(function(p) {
-            p.attacking = false
-            p.alive = false
-        })
+        // particles.forEach(function(p) {
+        //     p.attacking = false
+        //     p.alive = false
+        // })
         setTimeout(function() {
             fin = false
             life = 1
@@ -412,6 +428,8 @@ function start(ctx, width, height) {
             replaying = false
             particles.forEach(function(p) {
                 p.reset(width, height)
+                p.attacking = false
+                p.alive = false
             })
             intro.style.display = 'none'
         }, REPLAY_DUR)
