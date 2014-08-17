@@ -224,6 +224,7 @@ function render(ctx, width, height, dt) {
             intro.innerHTML = 'you died<br><font>click to replay</font>'
             var child = caption()
             
+            
             intro.style.display = 'block'
             intro.style.opacity = '0.0'
             setTimeout(function() { 
@@ -412,6 +413,7 @@ function start(ctx, width, height) {
             particles.forEach(function(p) {
                 p.reset(width, height)
             })
+            intro.style.display = 'none'
         }, REPLAY_DUR)
     })
 
